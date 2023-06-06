@@ -20,47 +20,4 @@
 ⚠️ Заметка: Исходно неизвестно, в какой конкретной норке находится кролик. Задача заключается в определении этого, выполняя проверки и перемещения по мере необходимости.
 
 🔍💨✨ Решение этой задачи требует использования алгоритма, который позволяет эффективно найти норку с кроликом, учитывая его перемещения и ограничения.
-------------------------
-const holes = [false, false, false, false, true, false, false];
 
-const moveRabbit = (holes) => {
-  const rabbitIndex = holes.findIndex((hole) => hole === true); 
-
-  if (rabbitIndex !== -1) {
-    const newIndex = rabbitIndex + (Math.random() < 0.5 ? -1 : 1); 
-
-    if (newIndex >= 0 && newIndex < holes.length) {
-      holes[rabbitIndex] = false; 
-      holes[newIndex] = true; 
-    }
-  }
-
-  return holes;
-};
-
-
-const getFindedIndexText = (index) => {
-  return`Кролик найден в норке ${index}`
-}
-
-const func = (holes, index = 0) => {
-  if (holes[index]) {
-    return getFindedIndexText(index);
-  } else {
-    if (holes[index - 1]) {
-      return getFindedIndexText(index = 1);
-    } else {
-      if (holes[index + 1]) {
-        return getFindedIndexText(index + 1);
-      } else {
-        console.log(`Кролик не найден в норке ${index} или её соседних`);
-        console.log('Кролик прыгнул в другую норку');
-        const newHoles = moveRabbit(holes);
-        return func(newHoles, index + 1);
-      }
-    }
-  }
-};
-
-const result = func(holes);
-console.log(result);
